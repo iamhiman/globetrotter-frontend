@@ -59,7 +59,7 @@ export default function Home() {
           <div className={cx('square')} />
           <div className={cx('square')} />
           <div className={cx('container')}>
-            <h2>Globetrotter - The Ultimate Travel Guessing Game!</h2>
+            <h2 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h2>
             <div className={cx('questions-container')}>
               <p className={cx('question')}>
                 {countryQuestion?.[currentQuestionRef.current]?.clues[randomNumberRef.current]} ?
