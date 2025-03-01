@@ -23,6 +23,8 @@
       border-bottom: 1px solid #ffffff33;
       color: #5d3587;
       text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
 
       .square {
         position: absolute;
@@ -33,7 +35,7 @@
         border-bottom: 1px solid #ffffff33;
         background: #ffffff1a;
         border-radius: 10px;
-        animation: animate 8s linear infinite;
+        animation: moving-squares 6s linear infinite;
       }
 
       .square:nth-child(1) {
@@ -127,11 +129,19 @@
           }
         }
       }
+
+      .fun-fact {
+        margin-top: 40px;
+        font-size: 18px;
+        width: 90%;
+        align-self: center;
+        animation: zoomInOut 3s infinite ease-in-out;
+      }
     }
   }
 }
 
-@keyframes animate {
+@keyframes moving-squares {
   0%,
   100% {
     transform: translateY(-30px);
@@ -139,4 +149,16 @@
   50% {
     transform: translateY(30px);
   }
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  } /* Zoom In */
+  100% {
+    transform: scale(1);
+  } /* Zoom Out */
 }

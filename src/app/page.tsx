@@ -74,6 +74,7 @@ export default function Home() {
                       value={option}
                       checked={selectedOption === option}
                       onChange={handleOptionSelection}
+                      disabled={showConfetti}
                     />
                     <label htmlFor={option} className={cx('option-label')}>
                       {option}
@@ -83,7 +84,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className={cx('fun-fact')}></div>
+          {selectedOption ? (
+            <div className={cx('fun-fact')}>
+              Fun Fact :{' '}
+              {countryQuestion?.[currentQuestionRef.current]?.fun_fact[randomNumberRef.current]}
+            </div>
+          ) : null}
         </div>
       </section>
       {showConfetti && (
