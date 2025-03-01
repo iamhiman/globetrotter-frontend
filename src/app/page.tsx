@@ -102,6 +102,11 @@ export default function Home() {
             <span>&#9989; Correct : 3</span>
             <span>&#10060; Wrong : 3</span>
           </div>
+
+          <div className={cx('button-containers')}>
+            <button className={cx('challenge-btn')}>&#x2694; Challenge a Friend</button>
+            <button className={cx('next-btn')}>&#x23ED; Next Question</button>
+          </div>
         </div>
         {selectedOption ? (
           showConfetti ? (
