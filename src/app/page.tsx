@@ -7,10 +7,12 @@ import { ChangeEvent, useState } from 'react';
 const cx = classNames.bind(styles);
 
 export default function Home() {
-  const { data, error, isLoading } = useGetDestinationsQuery();
+  const { data: countryQuestion, error, isLoading } = useGetDestinationsQuery();
   const [selectedOption, setSelectedOption] = useState('option1');
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const handleOptionSelection = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
     setSelectedOption(event.target.value);
   };
 
@@ -25,66 +27,25 @@ export default function Home() {
             <h2>Globetrotter - The Ultimate Travel Guessing Game!</h2>
             <div className={cx('questions-container')}>
               <p className={cx('question')}>
-                hbdsf sg sgsfg sfdgdgdgdgdsgdsggsfg sfd fhfd fgsfd fggsfg sdgsdg sdgsg fgfsdg rgre
-                sfgsfg sgsfg sdgsfdg?
+                {countryQuestion?.[currentQuestion]?.clues[Math.floor(Math.random() * 2)]} ?
               </p>
               <div className={cx('options-container')}>
-                <div className={cx('option-container')}>
-                  <input
-                    type="radio"
-                    name="question"
-                    id="first-option"
-                    className={cx('option')}
-                    value="option1"
-                    checked={selectedOption === 'option1'}
-                    onChange={handleOptionSelection}
-                  />
-                  <label htmlFor="first-option" className={cx('option-label')}>
-                    New Delhi - India
-                  </label>
-                </div>
-                <div className={cx('option-container')}>
-                  <input
-                    type="radio"
-                    name="question"
-                    id="second-option"
-                    className={cx('option')}
-                    value="option2"
-                    checked={selectedOption === 'option2'}
-                    onChange={handleOptionSelection}
-                  />
-                  <label htmlFor="second-option" className={cx('option-label')}>
-                    Large
-                  </label>
-                </div>
-                <div className={cx('option-container')}>
-                  <input
-                    type="radio"
-                    name="question"
-                    id="third-option"
-                    className={cx('option')}
-                    value="option3"
-                    checked={selectedOption === 'option3'}
-                    onChange={handleOptionSelection}
-                  />
-                  <label htmlFor="third-option" className={cx('option-label')}>
-                    Large3
-                  </label>
-                </div>
-                <div className={cx('option-container')}>
-                  <input
-                    type="radio"
-                    name="question"
-                    id="fourth-option"
-                    className={cx('option')}
-                    value="option4"
-                    checked={selectedOption === 'option4'}
-                    onChange={handleOptionSelection}
-                  />
-                  <label htmlFor="fourth-option" className={cx('option-label')}>
-                    Large4
-                  </label>
-                </div>
+                {countryQuestion?.[currentQuestion]?.options?.map((option) => (
+                  <div className={cx('option-container')} key={option}>
+                    <input
+                      type="radio"
+                      name="question"
+                      id={option}
+                      className={cx('option')}
+                      value={option}
+                      checked={selectedOption === option}
+                      onChange={handleOptionSelection}
+                    />
+                    <label htmlFor={option} className={cx('option-label')}>
+                      {option}
+                    </label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
