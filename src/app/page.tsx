@@ -77,7 +77,13 @@ export default function Home() {
                       onChange={handleOptionSelection}
                       disabled={!!selectedOption}
                     />
-                    <label htmlFor={option} className={cx('option-label')}>
+                    <label
+                      htmlFor={option}
+                      className={cx(
+                        'option-label',
+                        selectedOption !== option && selectedOption != null && 'option-disabled',
+                      )}
+                    >
                       {option}
                     </label>
                   </div>

@@ -127,6 +127,11 @@
                 color: white;
               }
 
+              .option-disabled {
+                background-color: #c1c1c1;
+                cursor: not-allowed;
+              }
+
               .option:checked + label:before {
                 height: 16px;
                 width: 16px;
@@ -144,6 +149,8 @@
         width: 90%;
         align-self: center;
         animation: zoomInOut 3s infinite ease-in-out;
+        letter-spacing: 1px;
+        word-spacing: 1px;
       }
     }
   }
