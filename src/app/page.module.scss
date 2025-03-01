@@ -11,7 +11,7 @@
 
     .box {
       width: 80%;
-      min-height: 80%;
+      min-height: 90%;
       background: #ffffff1a;
       border-radius: 10px;
       text-align: center;
@@ -57,6 +57,75 @@
         width: 80px;
         height: 80px;
         z-index: 50;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        text-shadow: none;
+
+        .questions-container {
+          padding: 20px 10px;
+          border: 1px solid #5d3587;
+          border-radius: 10px;
+          width: 90%;
+          margin-top: 20px;
+
+          .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+
+          .options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 80%;
+            margin: auto;
+            justify-content: center;
+
+            .option-container {
+              .option {
+                display: none;
+              }
+
+              .option-label {
+                color: #5d3587;
+                font-size: 18px;
+                border: 2px solid #5d3587;
+                border-radius: 5px;
+                padding: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+              }
+
+              .option-label:before {
+                content: '';
+                display: inline-block;
+                height: 16px;
+                width: 16px;
+                border-radius: 50%;
+                border: 3px solid #5d3587;
+                margin-right: 20px;
+              }
+
+              .option:checked + label {
+                background-color: #5d3587;
+                color: white;
+              }
+
+              .option:checked + label:before {
+                height: 16px;
+                width: 16px;
+                border: 3px solid white;
+                background-color: #5d3587;
+              }
+            }
+          }
+        }
       }
     }
   }
