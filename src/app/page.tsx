@@ -97,6 +97,11 @@ export default function Home() {
               {countryQuestion?.[currentQuestionRef.current]?.fun_fact[randomNumberRef.current]}
             </div>
           ) : null}
+          <div className={cx('game-info-containers')}>
+            <span>&#x1F3C6; Total Score : 5</span>
+            <span>&#9989; Correct : 3</span>
+            <span>&#10060; Wrong : 3</span>
+          </div>
         </div>
         {selectedOption ? (
           showConfetti ? (
