@@ -1,7 +1,8 @@
 'use client';
 
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import Confetti from 'react-confetti';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import styles from './page.module.scss';
 
@@ -10,11 +11,43 @@ const cx = classNames.bind(styles);
 export default function Home() {
   const { data: countryQuestion, error, isLoading } = useGetDestinationsQuery();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
   const currentQuestionRef = useRef<number>(0);
   const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return; // Ensure it's client-side
+
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleOptionSelection = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
+
+    if (
+      event.target.value ===
+      `${countryQuestion?.[currentQuestionRef.current]?.city} - ${countryQuestion?.[currentQuestionRef.current]?.country}`
+    ) {
+      setShowConfetti(true);
+    }
   };
 
   return (
@@ -53,6 +86,15 @@ export default function Home() {
           <div className={cx('fun-fact')}></div>
         </div>
       </section>
+      {showConfetti && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={2000}
+          onConfettiComplete={() => setShowConfetti(false)}
+        />
+      )}
     </main>
   );
 }
