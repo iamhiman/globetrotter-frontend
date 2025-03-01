@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import Confetti from 'react-confetti';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import styles from './page.module.scss';
+import Image from 'next/image';
 
 const cx = classNames.bind(styles);
 
@@ -74,7 +75,7 @@ export default function Home() {
                       value={option}
                       checked={selectedOption === option}
                       onChange={handleOptionSelection}
-                      disabled={showConfetti}
+                      disabled={!!selectedOption}
                     />
                     <label htmlFor={option} className={cx('option-label')}>
                       {option}
@@ -91,16 +92,27 @@ export default function Home() {
             </div>
           ) : null}
         </div>
+        {selectedOption ? (
+          showConfetti ? (
+            <Confetti
+              width={windowSize.width}
+              height={windowSize.height}
+              recycle={false}
+              numberOfPieces={2000}
+              // onConfettiComplete={() => setShowConfetti(false)}
+            />
+          ) : (
+            <Image
+              src="/sad.gif"
+              alt="Sad Face"
+              width={250}
+              height={250}
+              priority
+              className={cx('sad-image')}
+            />
+          )
+        ) : null}
       </section>
-      {showConfetti && (
-        <Confetti
-          width={windowSize.width}
-          height={windowSize.height}
-          recycle={false}
-          numberOfPieces={2000}
-          onConfettiComplete={() => setShowConfetti(false)}
-        />
-      )}
     </main>
   );
 }
