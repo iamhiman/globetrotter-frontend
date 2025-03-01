@@ -108,7 +108,7 @@ export default function Home() {
               width={250}
               height={250}
               priority
-              className={cx('sad-image')}
+              className={cx('sad-image', 'hide-sad-image')}
             />
           )
         ) : null}
