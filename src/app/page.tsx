@@ -1,18 +1,19 @@
 'use client';
 
+import { ChangeEvent, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import styles from './page.module.scss';
-import { ChangeEvent, useState } from 'react';
+
 const cx = classNames.bind(styles);
 
 export default function Home() {
   const { data: countryQuestion, error, isLoading } = useGetDestinationsQuery();
   const [selectedOption, setSelectedOption] = useState('option1');
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const currentQuestionRef = useRef<number>(0);
+  const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
 
   const handleOptionSelection = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
     setSelectedOption(event.target.value);
   };
 
@@ -27,10 +28,10 @@ export default function Home() {
             <h2>Globetrotter - The Ultimate Travel Guessing Game!</h2>
             <div className={cx('questions-container')}>
               <p className={cx('question')}>
-                {countryQuestion?.[currentQuestion]?.clues[Math.floor(Math.random() * 2)]} ?
+                {countryQuestion?.[currentQuestionRef.current]?.clues[randomNumberRef.current]} ?
               </p>
               <div className={cx('options-container')}>
-                {countryQuestion?.[currentQuestion]?.options?.map((option) => (
+                {countryQuestion?.[currentQuestionRef.current]?.options?.map((option) => (
                   <div className={cx('option-container')} key={option}>
                     <input
                       type="radio"
