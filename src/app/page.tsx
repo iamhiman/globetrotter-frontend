@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 export default function Home() {
   const { data: countryQuestion, error, isLoading } = useGetDestinationsQuery();
-  const [selectedOption, setSelectedOption] = useState('option1');
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const currentQuestionRef = useRef<number>(0);
   const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
 
