@@ -4,9 +4,10 @@ import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Confetti from 'react-confetti';
 import Image from 'next/image';
+import { WhatsappShareButton, WhatsappIcon } from 'next-share';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import useWindowSize from '@/utils/hooks/useWindowSize';
-import { FloatingSquares, Loader, Modal, QuestionCard } from '@/components';
+import { FloatingSquares, Loader, Modal, QuestionCard, CopyToClipboard } from '@/components';
 import styles from './HomePage.module.scss';
 
 const cx = classNames.bind(styles);
@@ -158,7 +159,16 @@ const HomePage = () => {
 
       {isModalOpen ? (
         <Modal isOpen={isModalOpen} onModalClose={() => setModalOpen(false)}>
-          modal content
+          <p>Share</p>
+          <br />
+          <WhatsappShareButton
+            url={'https://globetrotter-frontend-one.vercel.app/'}
+            title={`Can you beat my Score of ${correctAnswersRef.current} ?`}
+            separator=":: "
+          >
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+          <CopyToClipboard text={'https://globetrotter-frontend-one.vercel.app/'} />
         </Modal>
       ) : null}
     </section>

@@ -16,9 +16,10 @@
 
   .modal-content {
     background: white;
-    padding: 12px;
+    padding: 20px;
     border-radius: 10px;
-    width: 320px;
+    min-width: 60%;
+    min-height: 280px;
     text-align: center;
     position: relative;
     transform: scale(0.8);
