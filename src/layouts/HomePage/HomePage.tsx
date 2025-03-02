@@ -1,12 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Confetti from 'react-confetti';
 import Image from 'next/image';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import useWindowSize from '@/utils/hooks/useWindowSize';
-import { FloatingSquares, QuestionCard } from '@/components';
+import { FloatingSquares, Loader, QuestionCard } from '@/components';
 import styles from './HomePage.module.scss';
 
 const cx = classNames.bind(styles);
@@ -47,7 +47,14 @@ const HomePage = () => {
   };
 
   const getMainScreenContent = () => {
-    if (isLoading) return <div className={cx('loader')} />;
+    if (isLoading) return <Loader />;
+
+    if (error)
+      return (
+        <div className={cx('error-state')}>
+          Oops, All of our servers are under maintenance. We will be back soon !!{' '}
+        </div>
+      );
 
     if (currentQuestion == countryQuestion?.length)
       return <p className={cx('game-over')}>That's all for today - Game Over !!</p>;
