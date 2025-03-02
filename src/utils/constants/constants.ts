@@ -3,7 +3,7 @@ export const countriesData = [
     city: 'New Delhi',
     country: 'India',
     clues: [
-      "This city is home to India\'s largest mosque, which can accommodate over 25,000 worshippers at a time.",
+      "This city is home to India's largest mosque, which can accommodate over 25,000 worshippers at a time.",
       'This city has a pillar made of iron that has stood for over 1,600 years without rusting.',
     ],
     fun_fact: [
@@ -11,7 +11,7 @@ export const countriesData = [
       'New Delhi was designed by British architect Edwin Lutyens and is often called "Lutyen\'s Delhi" due to its planned layout, wide roads, and grand colonial buildings!',
     ],
     trivia: [
-      "Humayun\'s Tomb famous UNESCO World Heritage Site in New Delhi was the inspiration for the Taj Mahal",
+      "Humayun's Tomb famous UNESCO World Heritage Site in New Delhi was the inspiration for the Taj Mahal",
       'New Delhi is one of the greenest capitals in the world, with over 20% of its area covered in forests and parks!',
     ],
     options: ['Mumbai - India', 'New Delhi - India', 'Kolkata - India', 'Hyderabad - India'],

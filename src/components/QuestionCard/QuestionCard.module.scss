@@ -1,0 +1,22 @@
+.question-card-container {
+  padding: 20px 10px;
+  border: 1px solid #5d3587;
+  border-radius: 10px;
+  width: 90%;
+  margin-top: 20px;
+
+  .question {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .options-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+    justify-content: center;
+  }
+}

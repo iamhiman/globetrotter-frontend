@@ -1,0 +1,46 @@
+.floating-squares-container {
+  .square {
+    position: absolute;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px #0000001a;
+    border: 1px solid #ffffff80;
+    border-right: 1px solid #ffffff33;
+    border-bottom: 1px solid #ffffff33;
+    background: #ffffff1a;
+    border-radius: 10px;
+    animation: moving-squares 6s linear infinite;
+  }
+
+  .square:nth-child(1) {
+    top: -50px;
+    right: -60px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .square:nth-child(2) {
+    top: 150px;
+    left: -100px;
+    width: 120px;
+    height: 120px;
+    z-index: 50;
+  }
+
+  .square:nth-child(3) {
+    bottom: 50px;
+    right: -60px;
+    width: 80px;
+    height: 80px;
+    z-index: 50;
+  }
+}
+
+@keyframes moving-squares {
+  0%,
+  100% {
+    transform: translateY(-30px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+}
