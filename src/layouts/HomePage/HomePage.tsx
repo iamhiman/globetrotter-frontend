@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Confetti from 'react-confetti';
 import Image from 'next/image';
@@ -21,6 +21,7 @@ const HomePage = () => {
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [formInput, setFormInput] = useState({ show: false, value: '' });
   const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
   const correctAnswersRef = useRef<number>(0);
   const wrongAnswersRef = useRef<number>(0);
@@ -45,6 +46,17 @@ const HomePage = () => {
     setCurrentQuestion(currentQuestion + 1); //Redirect to New Question
     setShowConfetti(false); // Disable Confetti
     setSelectedOption(null); // Remove Previously selected option
+  };
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formInput.value.trim()) return;
+    setFormInput({ show: false, value: formInput.value });
+    setModalOpen(true);
+  };
+
+  const handleFormInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormInput({ show: true, value: e.target.value });
   };
 
   const getMainScreenContent = () => {
@@ -94,7 +106,10 @@ const HomePage = () => {
     <section className={cx('homepage-container')}>
       <div className={cx('glass-box')}>
         <FloatingSquares />
-        <h1 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h1>
+        <div className={cx('header-container')}>
+          <h1>Globetrotter - The Ultimate Travel Guessing Game!</h1>
+          <p>Welcome, {formInput.value && !formInput.show ? formInput.value : 'Guest'}</p>
+        </div>
         {getMainScreenContent()}
         {selectedOption ? (
           <div className={cx('fun-fact')}>
@@ -108,7 +123,10 @@ const HomePage = () => {
         </div>
 
         <div className={cx('button-container')}>
-          <button className={cx('challenge-btn')} onClick={() => setModalOpen(true)}>
+          <button
+            className={cx('challenge-btn')}
+            onClick={() => setFormInput({ show: true, value: '' })}
+          >
             &#x2694; Challenge a Friend
           </button>
           <button
@@ -123,8 +141,21 @@ const HomePage = () => {
         {currentQuestion == countryQuestion?.length ? (
           <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
         ) : null}
+        {formInput.show ? (
+          <form onSubmit={handleFormSubmit} className={cx('form-container')}>
+            <input
+              placeholder="Enter your Name"
+              className={cx('form-input')}
+              onChange={handleFormInputChange}
+            />
+            <button type="submit" className={cx('submit-btn')}>
+              Sign Up
+            </button>
+          </form>
+        ) : null}
       </div>
       {getAnimatedContent()}
+
       {isModalOpen ? (
         <Modal isOpen={isModalOpen} onModalClose={() => setModalOpen(false)}>
           modal content

@@ -31,8 +31,13 @@
       font-weight: bold;
     }
 
-    .heading {
-      text-align: center;
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .game-over {
@@ -96,6 +101,7 @@
         background: linear-gradient(45deg, #5d3587, #8e44ad);
         color: white;
         font-size: 20px;
+        border: 1px solid #5d3587;
         border-radius: 10px;
         transition: 0.5s;
       }
@@ -114,6 +120,40 @@
       .disabled-btn:hover {
         background: linear-gradient(45deg, #a1a1a1, #c1c1c1);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .form-container {
+      margin-top: 30px;
+      margin-bottom: 20px;
+
+      .form-input {
+        padding: 10px 15px;
+        font-size: 20px;
+        border: 2px solid #5d3587;
+        border-radius: 5px;
+        background-color: transparent;
+        color: #5d3587;
+        font-weight: bold;
+        margin-right: 20px;
+        outline: none;
+      }
+
+      .submit-btn {
+        padding: 12px 18px;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: linear-gradient(45deg, #5d3587, #8e44ad);
+        color: white;
+        font-size: 20px;
+        border-radius: 10px;
+        border: 1px solid #5d3587;
+        transition: 0.5s;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(45deg, #8e44ad, #5d3587);
       }
     }
   }
