@@ -23,17 +23,16 @@
     flex-direction: column;
     align-items: center;
 
-    .question-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      text-shadow: none;
-      width: 100%;
+    .heading {
+      text-align: center;
+    }
 
-      .heading {
-        text-align: center;
-      }
+    .game-over {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      font-size: 30px;
+      font-weight: bold;
     }
 
     .fun-fact {
@@ -95,6 +94,18 @@
 
       .next-btn:hover {
         background: linear-gradient(45deg, #8e44ad, #5d3587);
+      }
+
+      .disabled-btn {
+        cursor: not-allowed;
+        background: linear-gradient(45deg, #c1c1c1, #a1a1a1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        border: 1px solid #c1c1c1;
+      }
+
+      .disabled-btn:hover {
+        background: linear-gradient(45deg, #a1a1a1, #c1c1c1);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
       }
     }
   }

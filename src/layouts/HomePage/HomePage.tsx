@@ -50,15 +50,17 @@ const HomePage = () => {
     <section className={cx('homepage-container')}>
       <div className={cx('glass-box')}>
         <FloatingSquares />
-        <div className={cx('question-container')}>
-          <h2 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h2>
+        <h1 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h1>
+        {currentQuestion == countryQuestion?.length ? (
+          <p className={cx('game-over')}>That's all for today - Game Over !!</p>
+        ) : (
           <QuestionCard
             currentQuestion={currentQuestion}
             countryQuestion={countryQuestion}
             selectedOption={selectedOption}
             handleRadioButtonSelection={handleRadioButtonSelection}
           />
-        </div>
+        )}
         {selectedOption ? (
           <div className={cx('fun-fact')}>
             Fun Fact : {countryQuestion?.[currentQuestion]?.fun_fact[randomNumberRef.current]}
@@ -72,10 +74,16 @@ const HomePage = () => {
 
         <div className={cx('button-container')}>
           <button className={cx('challenge-btn')}>&#x2694; Challenge a Friend</button>
-          <button className={cx('next-btn')} onClick={handleNextQuestionClick}>
+          <button
+            className={cx('next-btn', !selectedOption && 'disabled-btn')}
+            onClick={handleNextQuestionClick}
+            disabled={!selectedOption}
+          >
             &#x23ED; Next Question
           </button>
         </div>
+
+        <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
       </div>
       {selectedOption ? (
         showConfetti ? (
