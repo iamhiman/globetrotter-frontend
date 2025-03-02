@@ -53,7 +53,7 @@ const HomePage = () => {
     if (error)
       return (
         <div className={cx('error-state')}>
-          Oops, All of our servers are under maintenance. We will be back soon !!{' '}
+          Oops, All of our servers are under maintenance. We will be back soon !!
         </div>
       );
 
@@ -68,6 +68,26 @@ const HomePage = () => {
         handleRadioButtonSelection={handleRadioButtonSelection}
       />
     );
+  };
+
+  const getAnimatedContent = () => {
+    if (selectedOption && showConfetti)
+      return (
+        <Confetti width={windowWidth} height={windowHeight} recycle={false} numberOfPieces={2000} />
+      );
+
+    if (selectedOption && !showConfetti)
+      return (
+        <Image
+          src="/sad.gif"
+          alt="Sad Face"
+          width={250}
+          height={250}
+          priority
+          className={cx('sad-image', 'hide-sad-image')}
+        />
+      );
+    return null;
   };
 
   return (
@@ -104,25 +124,7 @@ const HomePage = () => {
           <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
         ) : null}
       </div>
-      {selectedOption ? (
-        showConfetti ? (
-          <Confetti
-            width={windowWidth}
-            height={windowHeight}
-            recycle={false}
-            numberOfPieces={2000}
-          />
-        ) : (
-          <Image
-            src="/sad.gif"
-            alt="Sad Face"
-            width={250}
-            height={250}
-            priority
-            className={cx('sad-image', 'hide-sad-image')}
-          />
-        )
-      ) : null}
+      {getAnimatedContent()}
       {isModalOpen ? (
         <Modal isOpen={isModalOpen} onModalClose={() => setModalOpen(false)}>
           modal content
