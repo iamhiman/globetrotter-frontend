@@ -90,7 +90,9 @@ const HomePage = () => {
           </button>
         </div>
 
-        <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
+        {currentQuestion == countryQuestion?.length ? (
+          <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
+        ) : null}
       </div>
       {selectedOption ? (
         showConfetti ? (
