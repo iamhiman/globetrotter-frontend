@@ -24,3 +24,9 @@ export interface IQuestionCardProps
   countryQuestion: IGlobetrotterApiResponse[] | undefined;
   currentQuestion: number;
 }
+
+export interface IModalProps {
+  children: React.ReactNode;
+  isOpen: boolean;
+  onModalClose: () => void;
+}

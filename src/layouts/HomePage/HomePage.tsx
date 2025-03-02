@@ -6,7 +6,7 @@ import Confetti from 'react-confetti';
 import Image from 'next/image';
 import { useGetDestinationsQuery } from '@/store/globetrotterApi';
 import useWindowSize from '@/utils/hooks/useWindowSize';
-import { FloatingSquares, Loader, QuestionCard } from '@/components';
+import { FloatingSquares, Loader, Modal, QuestionCard } from '@/components';
 import styles from './HomePage.module.scss';
 
 const cx = classNames.bind(styles);
@@ -20,6 +20,7 @@ const HomePage = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [isModalOpen, setModalOpen] = useState(false);
   const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
   const correctAnswersRef = useRef<number>(0);
   const wrongAnswersRef = useRef<number>(0);
@@ -87,7 +88,9 @@ const HomePage = () => {
         </div>
 
         <div className={cx('button-container')}>
-          <button className={cx('challenge-btn')}>&#x2694; Challenge a Friend</button>
+          <button className={cx('challenge-btn')} onClick={() => setModalOpen(true)}>
+            &#x2694; Challenge a Friend
+          </button>
           <button
             className={cx('next-btn', !selectedOption && 'disabled-btn')}
             onClick={handleNextQuestionClick}
@@ -119,6 +122,11 @@ const HomePage = () => {
             className={cx('sad-image', 'hide-sad-image')}
           />
         )
+      ) : null}
+      {isModalOpen ? (
+        <Modal isOpen={isModalOpen} onModalClose={() => setModalOpen(false)}>
+          modal content
+        </Modal>
       ) : null}
     </section>
   );
