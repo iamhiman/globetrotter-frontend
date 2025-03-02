@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Confetti from 'react-confetti';
 import Image from 'next/image';
@@ -19,18 +19,31 @@ const HomePage = () => {
   //Hooks
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
-  const currentQuestionRef = useRef<number>(0);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const randomNumberRef = useRef<number>(Math.floor(Math.random() * 2));
+  const correctAnswersRef = useRef<number>(0);
+  const wrongAnswersRef = useRef<number>(0);
 
   const handleRadioButtonSelection = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
 
     if (
       event.target.value ===
-      `${countryQuestion?.[currentQuestionRef.current]?.city} - ${countryQuestion?.[currentQuestionRef.current]?.country}`
+      `${countryQuestion?.[currentQuestion]?.city} - ${countryQuestion?.[currentQuestion]?.country}`
     ) {
+      // showing confetti and updating correct answer count
       setShowConfetti(true);
+      correctAnswersRef.current = correctAnswersRef.current + 1;
+    } else {
+      //updating wrong answer count
+      wrongAnswersRef.current = wrongAnswersRef.current + 1;
     }
+  };
+
+  const handleNextQuestionClick = () => {
+    setCurrentQuestion(currentQuestion + 1); //Redirect to New Question
+    setShowConfetti(false); // Disable Confetti
+    setSelectedOption(null); // Remove Previously selected option
   };
 
   return (
@@ -40,7 +53,7 @@ const HomePage = () => {
         <div className={cx('question-container')}>
           <h2 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h2>
           <QuestionCard
-            currentQuestion={currentQuestionRef.current}
+            currentQuestion={currentQuestion}
             countryQuestion={countryQuestion}
             selectedOption={selectedOption}
             handleRadioButtonSelection={handleRadioButtonSelection}
@@ -48,19 +61,20 @@ const HomePage = () => {
         </div>
         {selectedOption ? (
           <div className={cx('fun-fact')}>
-            Fun Fact :{' '}
-            {countryQuestion?.[currentQuestionRef.current]?.fun_fact[randomNumberRef.current]}
+            Fun Fact : {countryQuestion?.[currentQuestion]?.fun_fact[randomNumberRef.current]}
           </div>
         ) : null}
         <div className={cx('game-info-container')}>
-          <span>&#x1F3C6; Total Score : 5</span>
-          <span>&#9989; Correct : 3</span>
-          <span>&#10060; Wrong : 3</span>
+          <span>&#x1F3C6; Total Score : {correctAnswersRef.current}</span>
+          <span>&#9989; Correct : {correctAnswersRef.current}</span>
+          <span>&#10060; Wrong : {wrongAnswersRef.current}</span>
         </div>
 
         <div className={cx('button-container')}>
           <button className={cx('challenge-btn')}>&#x2694; Challenge a Friend</button>
-          <button className={cx('next-btn')}>&#x23ED; Next Question</button>
+          <button className={cx('next-btn')} onClick={handleNextQuestionClick}>
+            &#x23ED; Next Question
+          </button>
         </div>
       </div>
       {selectedOption ? (
@@ -70,7 +84,6 @@ const HomePage = () => {
             height={windowHeight}
             recycle={false}
             numberOfPieces={2000}
-            // onConfettiComplete={() => setShowConfetti(false)}
           />
         ) : (
           <Image
