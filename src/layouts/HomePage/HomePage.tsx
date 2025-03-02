@@ -46,21 +46,28 @@ const HomePage = () => {
     setSelectedOption(null); // Remove Previously selected option
   };
 
+  const getMainScreenContent = () => {
+    if (isLoading) return <div className={cx('loader')} />;
+
+    if (currentQuestion == countryQuestion?.length)
+      return <p className={cx('game-over')}>That's all for today - Game Over !!</p>;
+
+    return (
+      <QuestionCard
+        currentQuestion={currentQuestion}
+        countryQuestion={countryQuestion}
+        selectedOption={selectedOption}
+        handleRadioButtonSelection={handleRadioButtonSelection}
+      />
+    );
+  };
+
   return (
     <section className={cx('homepage-container')}>
       <div className={cx('glass-box')}>
         <FloatingSquares />
         <h1 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h1>
-        {currentQuestion == countryQuestion?.length ? (
-          <p className={cx('game-over')}>That's all for today - Game Over !!</p>
-        ) : (
-          <QuestionCard
-            currentQuestion={currentQuestion}
-            countryQuestion={countryQuestion}
-            selectedOption={selectedOption}
-            handleRadioButtonSelection={handleRadioButtonSelection}
-          />
-        )}
+        {getMainScreenContent()}
         {selectedOption ? (
           <div className={cx('fun-fact')}>
             Fun Fact : {countryQuestion?.[currentQuestion]?.fun_fact[randomNumberRef.current]}
