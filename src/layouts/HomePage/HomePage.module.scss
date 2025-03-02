@@ -38,6 +38,16 @@
       width: 100%;
       padding-left: 16px;
       padding-right: 16px;
+
+      @media (max-width: 700px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+
+        .heading {
+          margin-bottom: 20px;
+        }
+      }
     }
 
     .game-over {
@@ -65,6 +75,12 @@
       width: 90%;
       margin-top: 40px;
       font-size: 20px;
+      gap: 20px;
+
+      @media (max-width: 700px) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
 
     .button-container {
@@ -73,6 +89,12 @@
       align-items: center;
       justify-content: space-between;
       width: 90%;
+      gap: 20px;
+
+      @media (max-width: 700px) {
+        flex-direction: column;
+        width: 100%;
+      }
 
       .challenge-btn {
         padding: 12px 18px;
@@ -86,6 +108,10 @@
         font-weight: bold;
         transition: all 0.5s ease-in-out;
         box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+
+        @media (max-width: 700px) {
+          width: 90%;
+        }
       }
 
       .challenge-btn:hover {
@@ -104,6 +130,9 @@
         border: 1px solid #5d3587;
         border-radius: 10px;
         transition: 0.5s;
+        @media (max-width: 700px) {
+          width: 90%;
+        }
       }
 
       .next-btn:hover {
@@ -127,6 +156,10 @@
       margin-top: 30px;
       margin-bottom: 20px;
 
+      @media (max-width: 700px) {
+        text-align: center;
+      }
+
       .form-input {
         padding: 10px 15px;
         font-size: 20px;
@@ -137,6 +170,10 @@
         font-weight: bold;
         margin-right: 20px;
         outline: none;
+
+        @media (max-width: 700px) {
+          margin-bottom: 20px;
+        }
       }
 
       .submit-btn {

@@ -164,7 +164,7 @@ const HomePage = () => {
       <div className={cx('glass-box')}>
         <FloatingSquares />
         <div className={cx('header-container')}>
-          <h1>Globetrotter - The Ultimate Travel Guessing Game!</h1>
+          <h1 className={cx('heading')}>Globetrotter - The Ultimate Travel Guessing Game!</h1>
           <p>Welcome, {formInput.value && !formInput.show ? formInput.value : 'Guest'}</p>
         </div>
         {getMainScreenContent()}
