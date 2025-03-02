@@ -60,6 +60,7 @@ const HomePage = () => {
     setFormInput({ show: true, value: e.target.value });
   };
 
+  //Function to return content pf main screen(question, options)
   const getMainScreenContent = () => {
     if (isLoading) return <Loader />;
 
@@ -83,6 +84,7 @@ const HomePage = () => {
     );
   };
 
+  //Function to return content on option selection
   const getAnimatedContent = () => {
     if (selectedOption && showConfetti)
       return (
@@ -103,6 +105,60 @@ const HomePage = () => {
     return null;
   };
 
+  //Function to return content on challenge a friend and next button click
+  const getDynamicContent = () => {
+    if (currentQuestion == countryQuestion?.length)
+      return <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />;
+
+    if (formInput.show)
+      return (
+        <form onSubmit={handleFormSubmit} className={cx('form-container')}>
+          <input
+            placeholder="Enter your Name"
+            className={cx('form-input')}
+            onChange={handleFormInputChange}
+          />
+          <button type="submit" className={cx('submit-btn')}>
+            Sign Up
+          </button>
+        </form>
+      );
+
+    return null;
+  };
+
+  //Function to return user scores
+  const getUserGameInfo = () => {
+    return (
+      <div className={cx('game-info-container')}>
+        <span>&#x1F3C6; Total Score : {correctAnswersRef.current}</span>
+        <span>&#9989; Correct : {correctAnswersRef.current}</span>
+        <span>&#10060; Wrong : {wrongAnswersRef.current}</span>
+      </div>
+    );
+  };
+
+  //Function to return CTAbutton container
+  const getCtaButtonContainer = () => {
+    return (
+      <div className={cx('button-container')}>
+        <button
+          className={cx('challenge-btn')}
+          onClick={() => setFormInput({ show: true, value: '' })}
+        >
+          &#x2694; Challenge a Friend
+        </button>
+        <button
+          className={cx('next-btn', !selectedOption && 'disabled-btn')}
+          onClick={handleNextQuestionClick}
+          disabled={!selectedOption}
+        >
+          &#x23ED; Next Question
+        </button>
+      </div>
+    );
+  };
+
   return (
     <section className={cx('homepage-container')}>
       <div className={cx('glass-box')}>
@@ -117,43 +173,9 @@ const HomePage = () => {
             Fun Fact : {countryQuestion?.[currentQuestion]?.fun_fact[randomNumberRef.current]}
           </div>
         ) : null}
-        <div className={cx('game-info-container')}>
-          <span>&#x1F3C6; Total Score : {correctAnswersRef.current}</span>
-          <span>&#9989; Correct : {correctAnswersRef.current}</span>
-          <span>&#10060; Wrong : {wrongAnswersRef.current}</span>
-        </div>
-
-        <div className={cx('button-container')}>
-          <button
-            className={cx('challenge-btn')}
-            onClick={() => setFormInput({ show: true, value: '' })}
-          >
-            &#x2694; Challenge a Friend
-          </button>
-          <button
-            className={cx('next-btn', !selectedOption && 'disabled-btn')}
-            onClick={handleNextQuestionClick}
-            disabled={!selectedOption}
-          >
-            &#x23ED; Next Question
-          </button>
-        </div>
-
-        {currentQuestion == countryQuestion?.length ? (
-          <Image src="/game-over.png" alt="Game Over" width={100} height={100} priority />
-        ) : null}
-        {formInput.show ? (
-          <form onSubmit={handleFormSubmit} className={cx('form-container')}>
-            <input
-              placeholder="Enter your Name"
-              className={cx('form-input')}
-              onChange={handleFormInputChange}
-            />
-            <button type="submit" className={cx('submit-btn')}>
-              Sign Up
-            </button>
-          </form>
-        ) : null}
+        {getUserGameInfo()}
+        {getCtaButtonContainer()}
+        {getDynamicContent()}
       </div>
       {getAnimatedContent()}
 
